@@ -87,5 +87,18 @@ function eliminar(index) {
 
 listarMascotas();
 
+function solicitarMascotas() {
+    const url = 'http://localhost:5000/mascotas'
+    fetch(url)
+        .then((respuesta) => {
+            if (respuesta.ok) {
+                return respuesta.json();
+            }
+        })
+        .then((mascotasDelServidor) => {
+            console.log({mascotasDelServidor});
+        });
+}
+
 form.onsubmit = enviarDatos;
 btnGuardar.onclick = enviarDatos;
