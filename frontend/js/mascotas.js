@@ -7,16 +7,18 @@ const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
 
-let mascotas = [
-    {
-        tipo: "Gato",
-        nombre:"Salem",
-        propietario:"Jeremías"
-    }
-];
+let mascotas = [];
 
-function listarMascotas () {
-    const htmlMascotas = mascotas.map((mascota, index)=>`
+ async function listarMascotas() {
+    try {
+        const url = 'http://localhost:5000/mascotas';
+        const respuesta = await fetch(url);
+        const mascotasDelServer =  await respuesta.json();
+        if(Array.isArray(mascotasDelServer) && mascotasDelServer.length > 0){
+            mascotas = mascotasDelServer;
+        }
+
+        const htmlMascotas = mascotas.map((mascota, index)=>`
         <tr>
             <th scope="row">${index}</th>
             <td>${mascota.tipo}</td>
@@ -29,12 +31,15 @@ function listarMascotas () {
             </div>
             </td>
         </tr>
-    `).join('');
-    listaMascota.innerHTML = htmlMascotas;
-    solicitarMascotas();
-    
-    Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
-    Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
+        `).join('');
+        listaMascota.innerHTML = htmlMascotas;
+        
+        Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
+        Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function enviarDatos(e) {
@@ -88,19 +93,6 @@ function eliminar(index) {
 
 listarMascotas();
 
-function solicitarMascotas() {
-    const url = 'http://localhost:5000/mascotas';
-    
-    fetch(url)
-        .then((respuesta) => {
-            if (respuesta.ok) {
-                return respuesta.json();
-            }
-        })
-        .then((mascotasDelServidor) => {
-            console.log({mascotasDelServidor});
-        });
-}
 
 form.onsubmit = enviarDatos;
 btnGuardar.onclick = enviarDatos;
