@@ -31,6 +31,7 @@ function listarMascotas () {
         </tr>
     `).join('');
     listaMascota.innerHTML = htmlMascotas;
+    solicitarMascotas();
     
     Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
     Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
@@ -88,7 +89,8 @@ function eliminar(index) {
 listarMascotas();
 
 function solicitarMascotas() {
-    const url = 'http://localhost:5000/mascotas'
+    const url = 'http://localhost:5000/mascotas';
+    
     fetch(url)
         .then((respuesta) => {
             if (respuesta.ok) {
