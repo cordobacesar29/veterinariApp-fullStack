@@ -14,7 +14,7 @@ let mascotas = [];
     try {
         const respuesta = await fetch(url);
         const mascotasDelServer =  await respuesta.json();
-        if(Array.isArray(mascotasDelServer) && mascotasDelServer.length > 0){
+        if(Array.isArray(mascotasDelServer)){
             mascotas = mascotasDelServer;
         }
 
@@ -64,11 +64,14 @@ let mascotas = [];
             'Content-Type': 'application/json',
             },
             body: JSON.stringify(datos),
+            mode: 'cors',
         })
-        listarMascotas();
-        resetModal();
-
-    }catch(error) {
+        if (respuesta.ok) {
+            listarMascotas();
+            resetModal();
+        }
+    }
+    catch(error) {
         console.log(error);
     }
 }
@@ -95,14 +98,24 @@ function resetModal() {
 }
 
 function eliminar(index) {
-    return function clickEliminar() {
-        mascotas = mascotas.filter((mascota, indiceMascota)=>indiceMascota !== index);
-        listarMascotas();
+    try {
+        const urlEnvio = `${url}/${index}`;
+        return async function clickEliminar() {
+            const respuesta = await fetch(urlEnvio, {
+                method: 'DELETE',
+            })
+            if (respuesta.ok) {
+                listarMascotas();
+                resetModal();
+            }
+        }
+    }catch (error) {
+        console.log(error);
     }
+    
 }
 
 listarMascotas();
-
 
 form.onsubmit = enviarDatos;
 btnGuardar.onclick = enviarDatos;
