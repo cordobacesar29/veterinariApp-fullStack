@@ -54,25 +54,38 @@ async function listarVeterinarios () {
     }
 }  
 
-function enviarDatos(e) {
+async function enviarDatos(e) {
     e.preventDefault();
-    const datos = {
+
+    try {
+       const datos = {
         nombre: inputNombre.value,
         apellido: inputApellido.value,
-        identificacion: inputIdentificacion.value
-    };
-    const action = btnGuardar.innerHTML;
-    switch(action) {
-        case 'Editar':
-            veterinarios[indice.value] = datos;
-        break;
-        default:
-            veterinarios.push(datos);
-        break;
-    }
-    
-    listarVeterinarios();
-    resetModal();
+        dni: inputIdentificacion.value
+        };
+        const action = btnGuardar.innerHTML;
+        let urlEnvio = url;
+        let method = 'POST';
+        if(action === 'Editar') {
+            urlEnvio += `/${indice.value}`;
+            method = 'PUT';
+        }
+        const respuesta = await fetch(urlEnvio, {
+            method,
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(datos),
+            mode: 'cors',
+        })
+        if (respuesta.ok) {
+            listarVeterinarios();
+            resetModal();
+        } 
+    } catch (error) {
+        console.log({ error });
+        $('.alert').show();
+    }    
 }
 
 function editar(index) {
@@ -84,7 +97,7 @@ function editar(index) {
         indice.value = index;
         inputNombre.value = veterinario.nombre;
         inputApellido.value = veterinario.apellido;
-        inputIdentificacion.value = veterinario.identificacion;
+        inputIdentificacion.value = veterinario.dni;
     }
 }
 
