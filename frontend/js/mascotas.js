@@ -48,7 +48,8 @@ let mascotas = [];
         }
 
     } catch (error) {
-        console.log(error);
+        console.log({ error });
+        document.getElementsByClassName('alert').show();
     }
 }
 

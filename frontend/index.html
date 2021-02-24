@@ -47,9 +47,18 @@
       <h4 class="page-title">Home</h4>
       <!-- Button trigger modal -->
       <div class="actions-menu">
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div class="actions-menu-content">
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Nueva
-        </button>
+          </button>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>Valla!</strong> Algo salió mal, inténtalo de nuevo.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        
       </div>
       
       <!--table-->
