@@ -7,9 +7,9 @@ module.exports = {
         {tipo: 'Perro', nombre: 'Firulais4', propietario:'Cesar'}
     ],
     profesionales :[
-        {nombre: 'Alexandra', Apellido:'Pérez', DNI: '36696941'},
-        {nombre: 'Ayelen', Apellido:'Pérez', DNI: '65223448'},
-        {nombre: 'Cesar', Apellido:'ura', DNI: '12156546'}
+        {nombre: 'Alexandra', apellido:'Pérez', dni: '36696941'},
+        {nombre: 'Ayelen', apellido:'Pérez', dni: '65223448'},
+        {nombre: 'Cesar', apellido:'ura', dni: '12156546'}
     ],
     propietarios :[
         {nombre: 'Alexandra', Apellido:'Pérez', Teléfono: '252696941'},
