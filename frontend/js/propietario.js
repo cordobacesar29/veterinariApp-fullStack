@@ -6,55 +6,85 @@ const inputTelefono = document.getElementById('input-telefono');
 const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
+const url = 'http://localhost:5000/propietarios';
 
-let propietarios = [
-    {
-        nombre:"César",
-        apellido:"Córdoba",
-        telefono: "3815350532"
-    }
-];
+let propietarios = [];
 
-function listarPropietarios () {
-    const htmlPropietarios = propietarios.map((propietario, index)=>`
-        <tr>
-            <th scope="row">${index}</th>
-            <td>${propietario.nombre}</td>
-            <td>${propietario.apellido}</td>
-            <td>${propietario.telefono}</td>
-            <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary editar"><i class="far fa-edit"></i></button>
-                <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
-            </div>
-            </td>
-        </tr>
-    `).join('');
-    listaPropietario.innerHTML = htmlPropietarios;
-    
-    Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
-    Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
+ async function listarPropietarios () {
+    try {
+        const respuesta = await fetch(url);
+        const propietariosDelServer =  await respuesta.json();
+        if(Array.isArray(propietariosDelServer)){
+            propietarios = propietariosDelServer;
+        }
+        if(propietarios.length) {
+            const htmlPropietarios = propietarios.map((propietario, index)=>`
+            <tr>
+                <th scope="row">${index}</th>
+                <td>${propietario.nombre}</td>
+                <td>${propietario.apellido}</td>
+                <td>${propietario.telefono}</td>
+                <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary editar"><i class="far fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                </td>
+            </tr>
+            `).join('');
+            listaPropietario.innerHTML = htmlPropietarios;
+            
+            Array
+            .from(document.getElementsByClassName('editar'))
+            .forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
+            Array
+            .from(document.getElementsByClassName('eliminar'))
+            .forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
+            return;
+            }else {
+                listaPropietario.innerHTML =
+                `<tr>
+                    <td colspan="5">No hay Propietarios</td>
+                </tr>`
+            };
+    } catch (error) {   
+        console.log({ error });
+    $('.alert').show(); 
+    } 
 }
 
-function enviarDatos(e) {
+ async function enviarDatos(e) {
     e.preventDefault();
-    const datos = {
-        nombre: inputNombre.value,
-        apellido: inputApellido.value,
-        telefono: inputTelefono.value
-    };
-    const action = btnGuardar.innerHTML;
-    switch(action) {
-        case 'Editar':
-            propietarios[indice.value] = datos;
-        break;
-        default:
-            propietarios.push(datos);
-        break;
+
+    try {
+        const datos = {
+            nombre: inputNombre.value,
+            apellido: inputApellido.value,
+            telefono: inputTelefono.value
+            };
+            const action = btnGuardar.innerHTML;
+            let urlEnvio = url;
+            let method = 'POST';
+            if(action === 'Editar') {
+                urlEnvio += `/${indice.value}`;
+                method = 'PUT';
+            }
+            const respuesta = await fetch(urlEnvio, {
+                method,
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos),
+                mode: 'cors',
+            })
+            if (respuesta.ok) {
+                listarPropietarios();
+                resetModal();
+            } 
+    } catch (error) {
+        console.log({ error });
+        $('.alert').show();
     }
-    
-    listarPropietarios();
-    resetModal();
 }
 
 function editar(index) {
@@ -79,9 +109,20 @@ function resetModal() {
 }
 
 function eliminar(index) {
-    return function clickEliminar() {
-        propietarios = propietarios.filter((propietario, indicePropietario)=>indicePropietario !== index);
-        listarPropietarios();
+    const urlEnvio = `${url}/${index}`;
+    return  async function clickEliminar() {
+        try {
+            const respuesta = await fetch(urlEnvio, {
+                method: 'DELETE',
+                mode: 'cors',
+            })
+            if (respuesta.ok) {
+                listarPropietarios();
+            }
+        } catch (error) {
+            console.log({ error });
+            $('.alert').show();
+        }
     }
 }
 

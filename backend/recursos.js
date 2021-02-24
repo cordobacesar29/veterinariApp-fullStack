@@ -12,9 +12,9 @@ module.exports = {
         {nombre: 'Cesar', apellido:'ura', dni: '12156546'}
     ],
     propietarios :[
-        {nombre: 'Alexandra', Apellido:'Pérez', Teléfono: '252696941'},
-        {nombre: 'Ayelen', Apellido:'Pérez', Teléfono: '0115223448'},
-        {nombre: 'Cesar', Apellido:'ura', Teléfono: '381156546'}
+        {nombre: 'Alexandra', apellido:'Pérez', telefono: '252696941'},
+        {nombre: 'Ayelen', apellido:'Pérez', telefono: '0115223448'},
+        {nombre: 'Cesar', apellido:'ura', telefono: '381156546'}
     ],
     consultas :[
         {
