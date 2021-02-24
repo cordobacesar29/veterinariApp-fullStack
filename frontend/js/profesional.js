@@ -110,9 +110,20 @@ function resetModal() {
 }
 
 function eliminar(index) {
-    return function clickEliminar() {
-        veterinarios = veterinarios.filter((veterinario, indiceVeterinario)=>indiceVeterinario !== index);
-        listarVeterinarios();
+    const urlEnvio = `${url}/${index}`;
+    return  async function clickEliminar() {
+        try {
+            const respuesta = await fetch(urlEnvio, {
+                method: 'DELETE',
+                mode: 'cors',
+            })
+            if (respuesta.ok) {
+                listarVeterinarios();
+            }
+        } catch (error) {
+            console.log({ error });
+            $('.alert').show();
+        }
     }
 }
 
