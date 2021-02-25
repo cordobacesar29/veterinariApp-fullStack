@@ -11,7 +11,7 @@ module.exports = {
     mascotas: mascotas(recursos.mascotas),
     profesionales: profesionales(recursos.profesionales),
     propietarios: propietarios(recursos.propietarios),
-    consultas: consultas(recursos.consultas),
+    consultas: consultas(recursos),
     noEncontrado: (data, callback) => {
         callback(404,{mensaje: 'no encontrado enrutador'});
     }
