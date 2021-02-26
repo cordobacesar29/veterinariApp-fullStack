@@ -1,6 +1,10 @@
 const listaPacientes = document.getElementById('lista-pacientes');
 const mascotasPaciente = document.getElementById('mascota-paciente') ;
 const profesionalesPaciente = document.getElementById('profesional-paciente') ;
+const btnGuardar = document.getElementById('btn-guardar');
+const indice = document.getElementById('indice');
+const historia = document.getElementById('historia');
+const diagnostico = document.getElementById('diagnostico');
 const url = 'http://localhost:5000';
 
 let consultas = [];
@@ -27,18 +31,23 @@ async function listarConsultas() {
                 <td>${consulta.diagnostico}</td>
                 <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary editar"><i class="far fa-edit"></i></button>
+                    <button type="button" class="editar btn btn-secondary"><i class="far fa-edit"></i></button>
                 </div>
                 </td>
                 </tr>`
             ).join('');
             listaPacientes.innerHTML = htmlConsultas;
+            Array
+            .from(document.getElementsByClassName('editar'))
+            .forEach(
+                (botonEditar, index)=>(botonEditar.onclick = editar(index))
+            );
+            return;
         }
     } catch (error) {
         console.log(error);
     }
 }
-listarConsultas();
 
 async function listarMascotas() {
     const entidad = 'mascotas';
@@ -60,7 +69,6 @@ async function listarMascotas() {
         console.log(error);
     }
 }
-listarMascotas();
 
 async function listarProfesional() {
     const entidad = 'profesionales';
@@ -82,4 +90,21 @@ async function listarProfesional() {
         console.log(error);
     }
 }
+
+function editar(index) {
+    return function handler() {
+        btnGuardar.innerText = 'Editar';
+        const myModal = new bootstrap.Modal(document.getElementById('exampleModal'), keyboard = true);
+        myModal.toggle();
+        const consulta = consultas[index];
+        indice.value = index;
+        mascotasPaciente.value = consulta.mascota.id;
+        profesionalesPaciente.value = consulta.veterinaria.id;
+        historia.value = consulta.historia;
+        diagnostico.value = consulta.diagnostico;
+    }
+}
+
+listarConsultas();
+listarMascotas();
 listarProfesional();
