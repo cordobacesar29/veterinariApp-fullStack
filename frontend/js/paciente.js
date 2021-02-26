@@ -105,6 +105,54 @@ function editar(index) {
     }
 }
 
+async function enviarDatos(e) {
+    const entidad = 'consultas';
+    e.preventDefault();
+
+    try {
+        const datos = {
+            mascota:mascotasPaciente.value,
+            veterinaria:profesionalesPaciente.value,
+            historia:historia.value,
+            diagnostico:diagnostico.value,
+
+            };
+            const action = btnGuardar.innerHTML;
+            let urlEnvio = `${url}/${entidad}`;
+            let method = 'POST';
+            if(action === 'Editar') {
+                urlEnvio += `/${indice.value}`;
+                method = 'PUT';
+            }
+            const respuesta = await fetch(urlEnvio, {
+                method,
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos),
+                mode: 'cors',
+            })
+            if (respuesta.ok) {
+                listarConsultas();
+                resetModal();
+            } 
+    } catch (error) {
+        console.log({ error });
+        $('.alert').show();
+    }
+}
+
+function resetModal() {
+    indice.value = '';
+    mascotasPaciente.value = '';
+    profesionalesPaciente.value = '';
+    historia.value = '';
+    diagnostico.value = '';
+    btnGuardar.innerHTML = 'Crear';
+}
+
+btnGuardar.onclick = enviarDatos;
+
 listarConsultas();
 listarMascotas();
 listarProfesional();
