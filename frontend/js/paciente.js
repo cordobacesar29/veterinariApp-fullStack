@@ -1,9 +1,11 @@
 const listaPacientes = document.getElementById('lista-pacientes');
 const mascotasPaciente = document.getElementById('mascota-paciente') ;
+const profesionalesPaciente = document.getElementById('profesional-paciente') ;
 const url = 'http://localhost:5000';
 
 let consultas = [];
 let mascotas = [];
+let profesionales = [];
 
 async function listarConsultas() {
     const entidad = 'consultas';
@@ -59,3 +61,25 @@ async function listarMascotas() {
     }
 }
 listarMascotas();
+
+async function listarProfesional() {
+    const entidad = 'profesionales';
+    try {
+        const respuesta = await fetch(`${url}/${entidad}`);
+        const profesionalesDelServidor =  await respuesta.json();
+        if(Array.isArray(profesionalesDelServidor)) {
+            profesionales = profesionalesDelServidor;
+        }
+        if(respuesta.ok) {
+            profesionales.forEach((profesional, indice) => {
+                const optionActual = document.createElement('option');
+                optionActual.innerHTML =`${profesional.nombre} ${profesional.apellido}` ;
+                optionActual.value = indice;
+                profesionalesPaciente.appendChild(optionActual);
+            })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+listarProfesional();
