@@ -5,6 +5,7 @@ const btnGuardar = document.getElementById('btn-guardar');
 const indice = document.getElementById('indice');
 const historia = document.getElementById('historia');
 const diagnostico = document.getElementById('diagnostico');
+const actionsMenu = document.getElementById('actionsMenu');
 const url = 'http://localhost:5000';
 
 let consultas = [];
@@ -46,7 +47,15 @@ async function listarConsultas() {
         }
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 
@@ -68,7 +77,15 @@ async function listarMascotas() {
         }
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 
@@ -90,7 +107,15 @@ async function listarProfesional() {
         }
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 
@@ -146,7 +171,15 @@ async function enviarDatos(e) {
             }                      
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 

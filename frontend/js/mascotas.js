@@ -6,6 +6,7 @@ const inputPropietario = document.getElementById('input-propie');
 const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
+const actionsMenu = document.getElementById('actionsMenu');
 const url = 'http://localhost:5000/mascotas';
 
 let mascotas = [];
@@ -17,7 +18,7 @@ let mascotas = [];
         if(Array.isArray(mascotasDelServer)){
             mascotas = mascotasDelServer;
         }
-        if(mascotas.length) {
+        if(mascotas.length > 0) {
             const htmlMascotas = mascotas.map((mascota, index)=>`
             <tr>
                 <th scope="row">${index}</th>
@@ -40,16 +41,22 @@ let mascotas = [];
                 .from(document.getElementsByClassName('eliminar'))
                 .forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
                 return;
-        } else {
+        }
             listaMascota.innerHTML =
                 `<tr>
                     <td colspan="5">No hay mascotas</td>
-                </tr>`
-        }
-
+                </tr>`;
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 
@@ -84,7 +91,15 @@ let mascotas = [];
     }
     catch(error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }
 
@@ -123,7 +138,15 @@ function eliminar(index) {
         }
     }catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
     
 }

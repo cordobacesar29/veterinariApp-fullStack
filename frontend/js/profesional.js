@@ -6,6 +6,7 @@ const inputApellido = document.getElementById('input-apellido');
 const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
+const actionsMenu = document.getElementById('actionsMenu');
 const url = 'http://localhost:5000/profesionales';
 
 let veterinarios =[];
@@ -50,7 +51,15 @@ async function listarVeterinarios () {
         }
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }
 }  
 
@@ -84,7 +93,15 @@ async function enviarDatos(e) {
         } 
     } catch (error) {
         console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
     }    
 }
 
@@ -122,7 +139,15 @@ function eliminar(index) {
             }
         } catch (error) {
             console.log({ error });
-        alert(error);
+        const alerta = `
+            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                <strong>Ups!</strong> ${error} 
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        actionsMenu.innerHTML = alerta;
         }
     }
 }

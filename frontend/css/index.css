@@ -1,16 +1,10 @@
 .actions-menu {
     padding: 1.5rem .5rem;
-}
-.page-title {
-    padding: 1rem 0rem 0rem .5rem;
-}
-.actions-menu-content {
     display: flex;
     justify-content: space-between;
 }
-.actions-menu-content .btn-dark {
-    height: 3.7rem;
-}
-.alert {
-    display:none;
+
+.actions-menu-content {
+    width: 50%;
+    display: flex;
 }
