@@ -50,7 +50,7 @@ async function listarVeterinarios () {
         }
     } catch (error) {
         console.log({ error });
-        $('.alert').show();
+        alert(error);
     }
 }  
 
@@ -84,7 +84,7 @@ async function enviarDatos(e) {
         } 
     } catch (error) {
         console.log({ error });
-        $('.alert').show();
+        alert(error);
     }    
 }
 
@@ -122,7 +122,7 @@ function eliminar(index) {
             }
         } catch (error) {
             console.log({ error });
-            $('.alert').show();
+        alert(error);
         }
     }
 }

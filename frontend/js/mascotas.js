@@ -49,7 +49,7 @@ let mascotas = [];
 
     } catch (error) {
         console.log({ error });
-        document.getElementsByClassName('alert').show();
+        alert(error);
     }
 }
 
@@ -83,7 +83,8 @@ let mascotas = [];
         }
     }
     catch(error) {
-        console.log(error);
+        console.log({ error });
+        alert(error);
     }
 }
 
@@ -121,7 +122,8 @@ function eliminar(index) {
             }
         }
     }catch (error) {
-        console.log(error);
+        console.log({ error });
+        alert(error);
     }
     
 }

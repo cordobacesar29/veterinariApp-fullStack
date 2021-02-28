@@ -45,7 +45,8 @@ async function listarConsultas() {
             return;
         }
     } catch (error) {
-        console.log(error);
+        console.log({ error });
+        alert(error);
     }
 }
 
@@ -66,7 +67,8 @@ async function listarMascotas() {
             })
         }
     } catch (error) {
-        console.log(error);
+        console.log({ error });
+        alert(error);
     }
 }
 
@@ -87,7 +89,8 @@ async function listarProfesional() {
             })
         }
     } catch (error) {
-        console.log(error);
+        console.log({ error });
+        alert(error);
     }
 }
 
@@ -117,28 +120,33 @@ async function enviarDatos(e) {
             diagnostico:diagnostico.value,
 
             };
-            const action = btnGuardar.innerHTML;
-            let urlEnvio = `${url}/${entidad}`;
-            let method = 'POST';
-            if(action === 'Editar') {
-                urlEnvio += `/${indice.value}`;
-                method = 'PUT';
-            }
-            const respuesta = await fetch(urlEnvio, {
-                method,
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(datos),
-                mode: 'cors',
-            })
-            if (respuesta.ok) {
-                listarConsultas();
-                resetModal();
-            } 
+            if(validar(datos) === true) {
+                const action = btnGuardar.innerHTML;
+                let urlEnvio = `${url}/${entidad}`;
+                let method = 'POST';
+                if(action === 'Editar') {
+                    urlEnvio += `/${indice.value}`;
+                    method = 'PUT';
+                }
+                const respuesta = await fetch(urlEnvio, {
+                    method,
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datos),
+                    mode: 'cors',
+                })
+                if (respuesta.ok) {
+                    listarConsultas();
+                    resetModal();
+                }
+                return;   
+            }else {
+                alert('formulario incompleto');
+            }                      
     } catch (error) {
         console.log({ error });
-        $('.alert').show();
+        alert(error);
     }
 }
 
@@ -149,6 +157,15 @@ function resetModal() {
     historia.value = '';
     diagnostico.value = '';
     btnGuardar.innerHTML = 'Crear';
+}
+
+function validar(datos) {
+    if(typeof datos !=='object') return false;
+
+    for(let llave in datos) {
+        if(datos[llave].length === 0) return false;
+    } 
+    return true;
 }
 
 btnGuardar.onclick = enviarDatos;

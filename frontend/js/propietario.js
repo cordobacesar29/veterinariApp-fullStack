@@ -49,7 +49,7 @@ let propietarios = [];
             };
     } catch (error) {   
         console.log({ error });
-    $('.alert').show(); 
+        alert(error);
     } 
 }
 
@@ -83,7 +83,7 @@ let propietarios = [];
             } 
     } catch (error) {
         console.log({ error });
-        $('.alert').show();
+        alert(error);
     }
 }
 
@@ -121,7 +121,7 @@ function eliminar(index) {
             }
         } catch (error) {
             console.log({ error });
-            $('.alert').show();
+            alert(error);
         }
     }
 }
