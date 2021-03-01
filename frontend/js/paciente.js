@@ -43,7 +43,6 @@ async function listarConsultas() {
             .forEach(
                 (botonEditar, index)=>(botonEditar.onclick = editar(index))
             );
-            return;
         }
     } catch (error) {
         console.log({ error });
@@ -103,7 +102,7 @@ async function listarProfesional() {
                 optionActual.innerHTML =`${profesional.nombre} ${profesional.apellido}` ;
                 optionActual.value = indice;
                 profesionalesPaciente.appendChild(optionActual);
-            })
+            });
         }
     } catch (error) {
         console.log({ error });
@@ -167,7 +166,16 @@ async function enviarDatos(e) {
                 }
                 return;   
             }else {
-                alert('formulario incompleto');
+                const modalBody = document.getElementById('modal-body');
+                const alertWarnnig = `
+                    <div class="alert alert-warnning alert-dismissible fade show" id="alert" role="alert">
+                        <strong>Ups!</strong> faltan llenar datos 
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                `;
+                modalBody.innerHTML = alertWarnnig;
             }                      
     } catch (error) {
         console.log({ error });

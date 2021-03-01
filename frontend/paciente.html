@@ -44,15 +44,13 @@
         </div>
       </nav>
       <!--fin de nav-->
-      <h1 class="page-title">Paciente</h1>
+      <h4 class="page-title">Pacientes</h4>
       <!-- Button trigger modal -->
       <div class="actions-menu">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Nueva
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Nueva
         </button>
-        <div class="actions-menu-content" id="actionsMenu">
-        </div>
-    </div>
+      </div>
       
       <!--table-->
       <table class="table table-hover">
@@ -82,7 +80,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Agrega una Mascota</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="modal-body">
             <form id="form">
               <input type="hidden" id="indice">
               <div class="row mb-3">
