@@ -50,9 +50,7 @@
         <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Nueva
         </button>
-        <div id="actions-menu">
-
-        </div>
+        <div id="actions-menu"></div>
       </div>
       
       <!--table-->
@@ -79,24 +77,25 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header"id="modal-header">
+          <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Agrega una Mascota</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div id="modal-header"></div>
           </div>
           <div class="modal-body" id="modal-body">
-            <form id="form">
+            <form id="form" class="needs-validation">
               <input type="hidden" id="indice">
               <div class="row mb-3">
                 <div class="col">
                   <select id="mascota-paciente" class="form-select" aria-label="Default select example">
-                    <option>Seleccione mascota</option>
+                    <option value="">Seleccione mascota</option>
                   </select>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
                   <select id="profesional-paciente" class="form-select" aria-label="Default select example">
-                    <option>Seleccione Profesional</option>
+                    <option value="">Seleccione Profesional</option>
                   </select>
                 </div>
               </div>

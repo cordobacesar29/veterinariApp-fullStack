@@ -5,7 +5,8 @@ const btnGuardar = document.getElementById('btn-guardar');
 const indice = document.getElementById('indice');
 const historia = document.getElementById('historia');
 const diagnostico = document.getElementById('diagnostico');
-const actionsMenu = document.getElementById('actionsMenu');
+const actionsMenu = document.getElementById('actions-menu');
+const form = document.getElementById('form');
 const url = 'http://localhost:5000';
 
 let consultas = [];
@@ -135,7 +136,6 @@ function editar(index) {
 async function enviarDatos(e) {
     const entidad = 'consultas';
     e.preventDefault();
-
     try {
         const datos = {
             mascota:mascotasPaciente.value,
@@ -164,19 +164,20 @@ async function enviarDatos(e) {
                     listarConsultas();
                     resetModal();
                 }
+                form.classList.add('was-validated'); 
                 return;   
-            }else {
-                const modalBody = document.getElementById('modal-body');
-                const alertWarnnig = `
-                    <div class="alert alert-warnning alert-dismissible fade show" id="alert" role="alert">
-                        <strong>Ups!</strong> faltan llenar datos 
-                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
-                modalBody.innerHTML = alertWarnnig;
-            }                      
+            }
+            const modalHeader = document.getElementById('modal-header');
+            const alertWarnig = `
+                <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert">
+                    <strong>Ups!</strong> faltan llenar datos 
+                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `;
+            modalHeader.innerHTML = alertWarnig;
+                     
     } catch (error) {
         console.log({ error });
         const alerta = `
@@ -192,21 +193,31 @@ async function enviarDatos(e) {
 }
 
 function resetModal() {
-    indice.value = '';
-    mascotasPaciente.value = '';
-    profesionalesPaciente.value = '';
-    historia.value = '';
-    diagnostico.value = '';
     btnGuardar.innerHTML = 'Crear';
+    [indice, mascotasPaciente, profesionalesPaciente, historia,diagnostico].forEach((inputActual)=> {
+        inputActual.value = '';
+        inputActual.classList.remove('is-invalid');
+        inputActual.classList.remove('is-valid');
+    })
+    const myModal = new bootstrap.Modal(document.getElementById('exampleModal'), keyboard = true);
+        myModal.toggle();
 }
 
 function validar(datos) {
     if(typeof datos !=='object') return false;
-
+    let respuesta = true;
     for(let llave in datos) {
-        if(datos[llave].length === 0) return false;
+        if(datos[llave].length === 0) {
+           const invalid = document.getElementById(llave);
+           invalid.classList.add('is-invalid');
+            respuesta = false; 
+        } else {
+            const invalid = document.getElementById(llave);
+            invalid.classList.remove('is-invalid');
+            invalid.classList.add('is-valid');
+        }
     } 
-    return true;
+    return respuesta;
 }
 
 btnGuardar.onclick = enviarDatos;

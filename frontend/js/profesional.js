@@ -6,7 +6,7 @@ const inputApellido = document.getElementById('input-apellido');
 const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
-const actionsMenu = document.getElementById('actionsMenu');
+const actionsMenu = document.getElementById('actions-menu');
 const url = 'http://localhost:5000/profesionales';
 
 let veterinarios =[];
