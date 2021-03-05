@@ -7,7 +7,7 @@ const historia = document.getElementById('historia');
 const diagnostico = document.getElementById('diagnostico');
 const actionsMenu = document.getElementById('actions-menu');
 const form = document.getElementById('form');
-const url = 'http://localhost:5000';
+const url = 'https://veterinariapp-backend.vercel.app';
 
 let consultas = [];
 let mascotas = [];

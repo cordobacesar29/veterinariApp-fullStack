@@ -7,7 +7,7 @@ const form = document.getElementById('form');
 const btnGuardar = document.getElementById('guardar');
 const indice = document.getElementById('indice');
 const actionsMenu = document.getElementById('actions-menu');
-const url = 'http://localhost:5000/profesionales';
+const url = 'https://veterinariapp-backend.vercel.app/profesionales';
 
 let veterinarios =[];
 
