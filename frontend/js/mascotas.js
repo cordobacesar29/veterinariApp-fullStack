@@ -14,6 +14,7 @@ let mascotas = [];
  async function listarMascotas() {
     try {
         const respuesta = await fetch(url);
+        console.log({respuesta});
         const mascotasDelServer =  await respuesta.json();
         if(Array.isArray(mascotasDelServer)){
             mascotas = mascotasDelServer;
